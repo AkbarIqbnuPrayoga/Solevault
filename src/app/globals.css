@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #08080a;
+  --foreground: #f4f4f6;
+
+  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --color-vault-black: #08080a;
+  --color-vault-surface: #0f0f13;
+  --color-vault-card: #16161a;
+  --color-vault-card-hover: #1c1c22;
+  --color-vault-border: #26262e;
+  --color-vault-border-light: #383842;
+  --color-vault-lime: #d4ff00;
+  --color-vault-lime-hover: #e2ff40;
+  --color-vault-muted: #828290;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: #08080a;
+  color: #f4f4f6;
+  font-family: var(--font-sans);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #08080a;
+  color: #f4f4f6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Text Selection in Electric Lime */
+::selection {
+  background-color: #d4ff00;
+  color: #08080a;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08080a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #26262e;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4ff00;
+}
+
+/* Typography Utility Classes */
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.font-mono-tag {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Glow effects */
+.glow-lime {
+  box-shadow: 0 0 25px -4px rgba(212, 255, 0, 0.35);
+}
+
+.glow-lime-sm {
+  box-shadow: 0 0 12px -2px rgba(212, 255, 0, 0.45);
+}
+
+.glow-lime-text {
+  text-shadow: 0 0 16px rgba(212, 255, 0, 0.4);
+}
+
+/* Streetwear editorial diagonal stripe pattern */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-radial-glow {
+  background: radial-gradient(circle at 50% 20%, rgba(212, 255, 0, 0.07) 0%, transparent 60%);
+}
+
+/* Animations */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s infinite ease-in-out;
+}
+
+/* Focus styles */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid #d4ff00;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
