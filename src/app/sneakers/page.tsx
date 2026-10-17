@@ -107,76 +107,81 @@ function CatalogContent() {
     setInStockOnly(false);
     setOnSaleOnly(false);
     setSortBy('featured');
-    router.push('/sneakers');
+    router.replace('/sneakers');
   };
 
-  // Multi-Filter & Search Algorithm
+  // Filter Algorithm
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
-      // Search query
+      // 1. Text Search Query
       if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase().trim();
-        const matchesName = product.name.toLowerCase().includes(query);
-        const matchesBrand = product.brand.toLowerCase().includes(query);
-        const matchesCat = product.category.toLowerCase().includes(query);
-        const matchesSku = product.sku.toLowerCase().includes(query);
-        const matchesColor = product.availableColors.some((c) =>
-          c.name.toLowerCase().includes(query)
-        );
-        if (!matchesName && !matchesBrand && !matchesCat && !matchesSku && !matchesColor) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchesName = product.name.toLowerCase().includes(q);
+        const matchesBrand = product.brand.toLowerCase().includes(q);
+        const matchesCategory = product.category.toLowerCase().includes(q);
+        const matchesSKU = product.sku.toLowerCase().includes(q);
+        const matchesTags = product.tags.some((t) => t.toLowerCase().includes(q));
+        if (!matchesName && !matchesBrand && !matchesCategory && !matchesSKU && !matchesTags) {
           return false;
         }
       }
 
-      // Brands
+      // 2. Brand Filter
       if (selectedBrands.length > 0 && !selectedBrands.includes(product.brand)) {
         return false;
       }
 
-      // Categories
+      // 3. Category Filter
       if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
         return false;
       }
 
-      // Sizes
-      if (
-        selectedSizes.length > 0 &&
-        !selectedSizes.some((s) => product.availableSizes.includes(s))
-      ) {
+      // 4. Size Filter
+      if (selectedSizes.length > 0) {
+        const hasSize = selectedSizes.some(
+          (size) => product.availableSizes.includes(size) && !product.sizesOutOfStock.includes(size)
+        );
+        if (!hasSize) return false;
+      }
+
+      // 5. Color Filter
+      if (selectedColors.length > 0) {
+        const matchesColor = product.availableColors.some((c) =>
+          selectedColors.includes(c.name.toLowerCase())
+        );
+        if (!matchesColor) return false;
+      }
+
+      // 6. Price Range Filter
+      if (product.price < priceRange[0] || product.price > priceRange[1]) {
         return false;
       }
 
-      // Colors
-      if (
-        selectedColors.length > 0 &&
-        !product.availableColors.some((c) =>
-          selectedColors.some((sc) => c.name.toLowerCase().includes(sc))
-        )
-      ) {
-        return false;
-      }
-
-      // Price Range
-      if (product.price > priceRange[1]) {
-        return false;
-      }
-
-      // In stock only
+      // 7. Stock status
       if (inStockOnly && product.stockQuantity <= 0) {
         return false;
       }
 
-      // On sale only
+      // 8. Sale filter
       if (onSaleOnly && !product.sale) {
         return false;
       }
 
       return true;
     }).sort((a, b) => {
-      if (sortBy === 'price-asc') return a.price - b.price;
-      if (sortBy === 'price-desc') return b.price - a.price;
-      if (sortBy === 'newest') return (b.newArrival ? 1 : 0) - (a.newArrival ? 1 : 0);
-      if (sortBy === 'popularity') return b.popularityScore - a.popularityScore;
+      // Sorting
+      if (sortBy === 'newest') {
+        return (b.newArrival ? 1 : 0) - (a.newArrival ? 1 : 0);
+      }
+      if (sortBy === 'price-asc') {
+        return a.price - b.price;
+      }
+      if (sortBy === 'price-desc') {
+        return b.price - a.price;
+      }
+      if (sortBy === 'popularity') {
+        return b.popularityScore - a.popularityScore;
+      }
       // Default: featured
       return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
     });
@@ -206,20 +211,27 @@ function CatalogContent() {
   const hasMore = visibleCount < filteredProducts.length;
 
   return (
-    <div className="min-h-screen bg-[#08080a] text-zinc-100 py-8">
+    <div className="min-h-screen bg-[#FAF7F2] text-[#1A1814] py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Breadcrumbs & Title */}
-        <div className="border-b border-zinc-800 pb-6 mb-8">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#d4ff00]">
-            CATALOG DOSSIER
-          </span>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mt-1">
-            <h1 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">
-              The Sneaker Vault
-            </h1>
-            <span className="font-mono text-xs text-zinc-400">
-              Displaying {filteredProducts.length} curated silhouettes
+        <div className="border-b border-[#E8E0D4] pb-8 mb-8">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#B87333] font-semibold">
+              ARCHIVE DOSSIER
+            </span>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#1A1814] tracking-tight">
+                The Sneaker <span className="italic text-[#B87333]">Vault</span>
+              </h1>
+              <p className="text-sm text-[#8C8275] mt-2 max-w-xl font-sans">
+                Curated architectural silhouettes, limited edition drops, and timeless staples from our global partner houses.
+              </p>
+            </div>
+            <span className="font-mono text-xs text-[#8C8275] bg-white border border-[#E8E0D4] px-3.5 py-1.5 rounded-full shadow-sm">
+              Displaying {filteredProducts.length} curated pairs
             </span>
           </div>
         </div>
@@ -228,18 +240,18 @@ function CatalogContent() {
         <div className="flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center mb-6">
           {/* Search Input */}
           <div className="relative flex-1 max-w-lg">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C8275]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by silhouette, colorway, or SKU..."
-              className="w-full bg-[#121217] border border-zinc-800 text-white placeholder-zinc-500 text-xs font-mono pl-10 pr-4 py-3 rounded-xl focus:border-[#d4ff00] focus:outline-none transition-colors"
+              className="w-full bg-white border border-[#E8E0D4] text-[#1A1814] placeholder-[#8C8275] text-xs font-sans pl-11 pr-4 py-3.5 rounded-full focus:border-[#B87333] focus:outline-none transition-all shadow-sm"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8C8275] hover:text-[#1A1814]"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -252,19 +264,19 @@ function CatalogContent() {
             <button
               type="button"
               onClick={() => setIsMobileFiltersOpen(true)}
-              className="lg:hidden flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-mono uppercase tracking-wider text-zinc-200"
+              className="lg:hidden flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-white border border-[#E8E0D4] rounded-full text-xs font-sans uppercase tracking-wider text-[#1A1814] shadow-sm"
             >
-              <SlidersHorizontal className="w-4 h-4 text-[#d4ff00]" />
+              <SlidersHorizontal className="w-4 h-4 text-[#B87333]" />
               <span>Filters ({activeFilterCount})</span>
             </button>
 
             {/* Sort Dropdown */}
             <div className="relative flex items-center">
-              <ArrowUpDown className="absolute left-3.5 w-3.5 h-3.5 text-zinc-500 pointer-events-none" />
+              <ArrowUpDown className="absolute left-3.5 w-3.5 h-3.5 text-[#8C8275] pointer-events-none" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-[#121217] border border-zinc-800 text-zinc-200 font-mono text-xs pl-9 pr-8 py-3 rounded-xl focus:border-[#d4ff00] focus:outline-none cursor-pointer appearance-none uppercase"
+                className="bg-white border border-[#E8E0D4] text-[#1A1814] font-sans text-xs pl-9 pr-8 py-3 rounded-full focus:border-[#B87333] focus:outline-none cursor-pointer appearance-none shadow-sm font-medium"
                 aria-label="Sort products"
               >
                 <option value="featured">Sort: Featured Picks</option>
@@ -276,12 +288,12 @@ function CatalogContent() {
             </div>
 
             {/* Column Layout Toggle (Desktop) */}
-            <div className="hidden lg:flex items-center border border-zinc-800 rounded-xl overflow-hidden bg-zinc-900/60 p-1">
+            <div className="hidden lg:flex items-center border border-[#E8E0D4] rounded-full overflow-hidden bg-white p-1 shadow-sm">
               <button
                 type="button"
                 onClick={() => setGridCols('3')}
-                className={`p-2 rounded-lg transition-colors ${
-                  gridCols === '3' ? 'bg-zinc-800 text-[#d4ff00]' : 'text-zinc-500 hover:text-white'
+                className={`p-2 rounded-full transition-colors ${
+                  gridCols === '3' ? 'bg-[#FAF7F2] text-[#B87333] shadow-sm' : 'text-[#8C8275] hover:text-[#1A1814]'
                 }`}
                 title="3 columns grid"
                 aria-label="3 columns grid view"
@@ -291,8 +303,8 @@ function CatalogContent() {
               <button
                 type="button"
                 onClick={() => setGridCols('4')}
-                className={`p-2 rounded-lg transition-colors ${
-                  gridCols === '4' ? 'bg-zinc-800 text-[#d4ff00]' : 'text-zinc-500 hover:text-white'
+                className={`p-2 rounded-full transition-colors ${
+                  gridCols === '4' ? 'bg-[#FAF7F2] text-[#B87333] shadow-sm' : 'text-[#8C8275] hover:text-[#1A1814]'
                 }`}
                 title="4 columns grid"
                 aria-label="4 columns grid view"
@@ -306,75 +318,75 @@ function CatalogContent() {
         {/* Active Filter Chips */}
         {activeFilterCount > 0 && (
           <div className="flex flex-wrap items-center gap-2 mb-8 pt-2">
-            <span className="font-mono text-xs text-zinc-500">Active Filters:</span>
+            <span className="font-mono text-xs text-[#8C8275]">Active Filters:</span>
             
             {searchQuery && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-[#E8E0D4] text-xs text-[#1A1814] shadow-sm">
                 &ldquo;{searchQuery}&rdquo;
-                <button onClick={() => setSearchQuery('')} className="hover:text-white">
+                <button onClick={() => setSearchQuery('')} className="hover:text-[#B87333]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
             )}
 
             {selectedBrands.map((b) => (
-              <span key={b} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d4ff00]/10 border border-[#d4ff00]/40 text-xs font-mono text-[#d4ff00]">
+              <span key={b} className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#B87333]/10 border border-[#B87333]/30 text-xs font-medium text-[#B87333]">
                 {b}
-                <button onClick={() => handleToggleBrand(b)} className="hover:text-white">
+                <button onClick={() => handleToggleBrand(b)} className="hover:text-[#1A1814]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
             ))}
 
             {selectedCategories.map((c) => (
-              <span key={c} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300">
+              <span key={c} className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-[#E8E0D4] text-xs text-[#1A1814] shadow-sm">
                 {c}
-                <button onClick={() => handleToggleCategory(c)} className="hover:text-white">
+                <button onClick={() => handleToggleCategory(c)} className="hover:text-[#B87333]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
             ))}
 
             {selectedSizes.map((s) => (
-              <span key={s} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300">
+              <span key={s} className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-[#E8E0D4] text-xs font-mono text-[#1A1814] shadow-sm">
                 US {s}
-                <button onClick={() => handleToggleSize(s)} className="hover:text-white">
+                <button onClick={() => handleToggleSize(s)} className="hover:text-[#B87333]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
             ))}
 
             {selectedColors.map((col) => (
-              <span key={col} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 capitalize">
+              <span key={col} className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-[#E8E0D4] text-xs text-[#1A1814] capitalize shadow-sm">
                 {col}
-                <button onClick={() => handleToggleColor(col)} className="hover:text-white">
+                <button onClick={() => handleToggleColor(col)} className="hover:text-[#B87333]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
             ))}
 
             {priceRange[1] < 260 && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-[#E8E0D4] text-xs font-mono text-[#1A1814] shadow-sm">
                 Up to ${priceRange[1]}
-                <button onClick={() => setPriceRange([0, 260])} className="hover:text-white">
+                <button onClick={() => setPriceRange([0, 260])} className="hover:text-[#B87333]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
             )}
 
             {inStockOnly && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-[#E8E0D4] text-xs text-[#1A1814] shadow-sm">
                 In Stock Only
-                <button onClick={() => setInStockOnly(false)} className="hover:text-white">
+                <button onClick={() => setInStockOnly(false)} className="hover:text-[#B87333]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
             )}
 
             {onSaleOnly && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-950/40 border border-red-800/60 text-xs font-mono text-red-400">
-                On Sale
-                <button onClick={() => setOnSaleOnly(false)} className="hover:text-white">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#B87333]/15 border border-[#B87333]/40 text-xs text-[#8B5A2B] font-medium">
+                Archive Sale
+                <button onClick={() => setOnSaleOnly(false)} className="hover:text-[#1A1814]">
                   <X className="w-3 h-3" />
                 </button>
               </span>
@@ -382,7 +394,7 @@ function CatalogContent() {
 
             <button
               onClick={handleResetFilters}
-              className="font-mono text-xs text-[#d4ff00] hover:underline flex items-center gap-1 ml-2"
+              className="font-mono text-xs text-[#B87333] hover:underline flex items-center gap-1 ml-2 font-semibold"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Clear All</span>
@@ -394,7 +406,7 @@ function CatalogContent() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Desktop Left Filter Sidebar */}
-          <aside className="hidden lg:block lg:col-span-3 sticky top-24 p-6 bg-[#0f0f13] border border-zinc-800/80 rounded-2xl">
+          <aside className="hidden lg:block lg:col-span-3 sticky top-28 p-6 bg-white border border-[#E8E0D4] rounded-3xl shadow-sm">
             <CatalogFilters
               selectedBrands={selectedBrands}
               selectedCategories={selectedCategories}
@@ -433,12 +445,12 @@ function CatalogContent() {
                 {/* Load More Button */}
                 {hasMore && (
                   <div className="mt-12 flex flex-col items-center justify-center gap-3">
-                    <p className="font-mono text-xs text-zinc-500">
+                    <p className="font-mono text-xs text-[#8C8275]">
                       Showing {displayedProducts.length} of {filteredProducts.length} silhouettes
                     </p>
                     <button
                       onClick={() => setVisibleCount((prev) => prev + 8)}
-                      className="px-8 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-white hover:text-[#d4ff00] border border-zinc-700/80 hover:border-[#d4ff00]/60 font-mono text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95"
+                      className="px-8 py-3.5 bg-[#FAF7F2] hover:bg-white text-[#1A1814] hover:text-[#B87333] border border-[#E8E0D4] hover:border-[#B87333] font-sans text-xs font-semibold uppercase tracking-wider rounded-full transition-all shadow-sm active:scale-95"
                     >
                       Load More Drops
                     </button>
@@ -447,19 +459,19 @@ function CatalogContent() {
               </>
             ) : (
               /* Empty State */
-              <div className="p-12 text-center bg-[#0e0e13] border border-zinc-800 rounded-2xl">
-                <div className="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-600 mx-auto mb-4">
+              <div className="p-12 text-center bg-white border border-[#E8E0D4] rounded-3xl shadow-sm">
+                <div className="w-16 h-16 rounded-full bg-[#FAF7F2] border border-[#E8E0D4] flex items-center justify-center text-[#8C8275] mx-auto mb-4">
                   <Search className="w-8 h-8" />
                 </div>
-                <h3 className="font-display text-2xl font-bold uppercase text-white mb-2">
+                <h3 className="font-serif text-2xl font-bold text-[#1A1814] mb-2">
                   No Matching Silhouettes
                 </h3>
-                <p className="text-zinc-400 text-xs max-w-md mx-auto mb-6">
+                <p className="text-[#8C8275] text-xs max-w-md mx-auto mb-6">
                   No footwear matches the active combination of filters and search queries. Try removing some filters or resetting to the full catalog.
                 </p>
                 <button
                   onClick={handleResetFilters}
-                  className="px-6 py-3 bg-[#d4ff00] hover:bg-[#e2ff40] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-xl transition-colors"
+                  className="px-6 py-3 bg-[#B87333] hover:bg-[#8B5A2B] text-white font-sans text-xs font-medium rounded-full transition-colors shadow-sm"
                 >
                   Reset All Filters
                 </button>
@@ -475,11 +487,11 @@ function CatalogContent() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex lg:hidden bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex lg:hidden bg-[#1A1814]/70 backdrop-blur-sm animate-in fade-in duration-200"
           onClick={() => setIsMobileFiltersOpen(false)}
         >
           <div
-            className="w-[85%] max-w-sm bg-[#0e0e13] h-full border-r border-zinc-800 p-6 overflow-y-auto"
+            className="w-[85%] max-w-sm bg-[#FFFDF8] h-full border-r border-[#E8E0D4] p-6 overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <CatalogFilters
@@ -512,9 +524,9 @@ export default function SneakersPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#08080a] flex items-center justify-center">
-          <div className="font-mono text-xs uppercase tracking-widest text-[#d4ff00] animate-pulse">
-            LOADING VAULT CATALOG...
+        <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center">
+          <div className="font-mono text-xs uppercase tracking-widest text-[#B87333] animate-pulse">
+            LOADING VAULT ARCHIVE...
           </div>
         </div>
       }

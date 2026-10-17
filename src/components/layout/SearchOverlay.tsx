@@ -99,16 +99,16 @@ export function SearchOverlay() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="search-dialog-title"
-      className="fixed inset-0 z-50 flex flex-col bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex flex-col bg-[#1A1814]/70 backdrop-blur-md animate-in fade-in duration-200"
       onClick={() => setSearchOpen(false)}
     >
       <div
-        className="w-full max-w-4xl mx-auto mt-6 sm:mt-12 p-4 sm:p-6 bg-[#0f0f13] border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
+        className="w-full max-w-4xl mx-auto mt-6 sm:mt-14 p-5 sm:p-7 bg-[#FFFDF8] border border-[#E8E0D4] rounded-3xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="relative flex items-center border-b border-zinc-800 pb-4">
-          <Search className="w-5 h-5 text-[#d4ff00] mr-3" />
+        <div className="relative flex items-center border-b border-[#E8E0D4] pb-5">
+          <Search className="w-5 h-5 text-[#B87333] mr-3.5 flex-shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -120,12 +120,12 @@ export function SearchOverlay() {
               }
             }}
             placeholder="Search by silhouette, brand (Nike, Jordan, ASICS), or colorway..."
-            className="flex-1 bg-transparent text-white placeholder-zinc-500 font-sans text-base sm:text-lg focus:outline-none"
+            className="flex-1 bg-transparent text-[#1A1814] placeholder-[#8C8275] font-sans text-base sm:text-lg focus:outline-none"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="p-1 text-zinc-400 hover:text-white mr-2"
+              className="p-1.5 text-[#8C8275] hover:text-[#1A1814] rounded-full hover:bg-[#F0EBE3] mr-2"
               aria-label="Clear search input"
             >
               <X className="w-4 h-4" />
@@ -133,23 +133,23 @@ export function SearchOverlay() {
           )}
           <button
             onClick={() => setSearchOpen(false)}
-            className="px-2.5 py-1 rounded bg-zinc-800 text-zinc-400 hover:text-white font-mono text-xs uppercase tracking-wider"
+            className="px-3 py-1.5 rounded-full bg-[#FAF7F2] border border-[#E8E0D4] text-[#8C8275] hover:text-[#1A1814] hover:border-[#B87333] font-mono text-xs uppercase tracking-wider transition-colors"
           >
             ESC
           </button>
         </div>
 
         {/* Popular Tags Strip */}
-        <div className="py-3 flex items-center gap-2 overflow-x-auto border-b border-zinc-900 text-xs font-mono">
-          <span className="text-zinc-500 flex items-center gap-1 flex-shrink-0">
-            <Tag className="w-3 h-3 text-[#d4ff00]" />
-            Trending:
+        <div className="py-3.5 flex items-center gap-2 overflow-x-auto border-b border-[#F0EBE3] text-xs">
+          <span className="text-[#8C8275] flex items-center gap-1.5 flex-shrink-0 font-medium">
+            <Tag className="w-3.5 h-3.5 text-[#B87333]" />
+            Trending Tags:
           </span>
           {popularTags.map((tag) => (
             <button
               key={tag}
               onClick={() => handleTagClick(tag)}
-              className="px-2.5 py-1 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#d4ff00]/40 text-zinc-300 hover:text-white transition-colors flex-shrink-0"
+              className="px-3 py-1 rounded-full bg-[#FAF7F2] hover:bg-[#F0EBE3] border border-[#E8E0D4] hover:border-[#B87333] text-[#1A1814] font-medium transition-colors flex-shrink-0 text-xs"
             >
               {tag}
             </button>
@@ -157,22 +157,22 @@ export function SearchOverlay() {
         </div>
 
         {/* Results Area */}
-        <div className="max-h-[60vh] overflow-y-auto py-4">
+        <div className="max-h-[60vh] overflow-y-auto py-5 pr-1">
           {trimmed ? (
             matchedProducts.length > 0 ? (
-              <div className="space-y-2">
-                <p className="font-mono text-xs uppercase tracking-wider text-zinc-500 mb-3">
+              <div className="space-y-3">
+                <p className="font-mono text-[11px] uppercase tracking-wider text-[#8C8275]">
                   Found {matchedProducts.length} matching silhouettes
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {matchedProducts.map((product) => (
                     <Link
                       key={product.id}
                       href={`/product/${product.slug}`}
                       onClick={() => handleSelectProduct(product)}
-                      className="flex items-center gap-3.5 p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 hover:border-[#d4ff00]/50 transition-all group"
+                      className="flex items-center gap-3.5 p-3 rounded-2xl bg-[#FAF7F2] hover:bg-[#F0EBE3] border border-[#E8E0D4] hover:border-[#B87333] transition-all group shadow-sm hover:shadow-md"
                     >
-                      <div className="relative w-16 h-16 rounded-lg bg-zinc-950 overflow-hidden flex-shrink-0 border border-zinc-800">
+                      <div className="relative w-16 h-16 rounded-xl bg-white overflow-hidden flex-shrink-0 border border-[#E8E0D4]">
                         <ImageWithFallback
                           src={product.images[0]}
                           alt={product.name}
@@ -182,52 +182,52 @@ export function SearchOverlay() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="font-mono text-[10px] text-[#d4ff00] uppercase tracking-wider block">
+                        <span className="font-mono text-[10px] text-[#B87333] uppercase tracking-wider block font-semibold">
                           {product.brand} • {product.category}
                         </span>
-                        <h4 className="font-display text-sm font-bold text-white uppercase truncate group-hover:text-[#d4ff00] transition-colors">
+                        <h4 className="font-serif text-sm font-bold text-[#1A1814] truncate group-hover:text-[#B87333] transition-colors">
                           {product.name}
                         </h4>
-                        <span className="font-mono text-xs font-bold text-zinc-300">
+                        <span className="font-mono text-xs font-semibold text-[#8C8275]">
                           ${product.price}
                         </span>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-[#d4ff00] group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="w-4 h-4 text-[#8C8275] group-hover:text-[#B87333] group-hover:translate-x-1 transition-all" />
                     </Link>
                   ))}
                 </div>
               </div>
             ) : (
               <div className="py-12 text-center">
-                <p className="font-display text-lg uppercase text-white mb-2">
+                <p className="font-serif text-xl font-bold text-[#1A1814] mb-2">
                   No Silhouettes Found For &ldquo;{query}&rdquo;
                 </p>
-                <p className="text-xs text-zinc-400 max-w-sm mx-auto mb-4">
-                  Try searching for Nike, Jordan, Samba, 9060, or browse our curated catalog.
+                <p className="text-xs text-[#8C8275] max-w-sm mx-auto mb-6">
+                  Try searching for Nike, Jordan, Samba, 9060, or browse our curated archive collection.
                 </p>
                 <Link
                   href="/sneakers"
                   onClick={() => setSearchOpen(false)}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#d4ff00] text-black font-mono text-xs uppercase font-bold rounded-lg"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#B87333] hover:bg-[#8B5A2B] text-white font-medium text-xs rounded-full shadow-md transition-all hover:scale-[1.02]"
                 >
-                  <span>Browse Full Catalog</span>
+                  <span>Browse Full Collection</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             )
           ) : (
-            /* Recent searches state */
-            <div className="space-y-4">
+            /* Recent searches & recommendations */
+            <div className="space-y-6">
               {recentSearches.length > 0 && (
                 <div>
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-900">
-                    <span className="font-mono text-xs uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
+                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#F0EBE3]">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-[#8C8275] flex items-center gap-1.5 font-semibold">
+                      <Clock className="w-3.5 h-3.5 text-[#B87333]" />
                       Recent Searches
                     </span>
                     <button
                       onClick={clearRecentSearches}
-                      className="font-mono text-[11px] text-zinc-500 hover:text-white transition-colors"
+                      className="font-mono text-[11px] text-[#8C8275] hover:text-[#B87333] transition-colors"
                     >
                       Clear
                     </button>
@@ -236,17 +236,17 @@ export function SearchOverlay() {
                     {recentSearches.map((term) => (
                       <div
                         key={term}
-                        className="flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300"
+                        className="flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full bg-[#FAF7F2] border border-[#E8E0D4] text-xs text-[#1A1814]"
                       >
                         <button
                           onClick={() => handleTagClick(term)}
-                          className="hover:text-white"
+                          className="hover:text-[#B87333] transition-colors"
                         >
                           {term}
                         </button>
                         <button
                           onClick={() => removeRecentSearch(term)}
-                          className="text-zinc-600 hover:text-zinc-300 p-0.5"
+                          className="text-[#8C8275] hover:text-red-500 p-0.5 rounded-full"
                           aria-label={`Remove ${term}`}
                         >
                           <X className="w-3 h-3" />
@@ -259,19 +259,19 @@ export function SearchOverlay() {
 
               {/* Quick Picks */}
               <div>
-                <p className="font-mono text-xs uppercase tracking-wider text-zinc-500 mb-3 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#d4ff00]" />
+                <p className="font-mono text-[11px] uppercase tracking-wider text-[#8C8275] mb-3 flex items-center gap-1.5 font-semibold">
+                  <Sparkles className="w-3.5 h-3.5 text-[#B87333]" />
                   Curator Recommended Drops
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   {PRODUCTS.slice(0, 3).map((product) => (
                     <Link
                       key={product.id}
                       href={`/product/${product.slug}`}
                       onClick={() => handleSelectProduct(product)}
-                      className="p-3 rounded-xl bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800/80 transition-colors group flex items-center gap-3"
+                      className="p-3.5 rounded-2xl bg-[#FAF7F2] hover:bg-[#F0EBE3] border border-[#E8E0D4] hover:border-[#B87333] transition-all group flex items-center gap-3.5 shadow-sm hover:shadow-md"
                     >
-                      <div className="relative w-12 h-12 rounded bg-zinc-950 overflow-hidden flex-shrink-0">
+                      <div className="relative w-12 h-12 rounded-xl bg-white overflow-hidden flex-shrink-0 border border-[#E8E0D4]">
                         <ImageWithFallback
                           src={product.images[0]}
                           alt={product.name}
@@ -281,10 +281,10 @@ export function SearchOverlay() {
                         />
                       </div>
                       <div className="min-w-0">
-                        <span className="font-mono text-[10px] text-[#d4ff00] block truncate">
+                        <span className="font-mono text-[10px] text-[#B87333] font-semibold block truncate">
                           {product.brand}
                         </span>
-                        <p className="font-display text-xs font-bold text-white uppercase truncate group-hover:text-[#d4ff00] transition-colors">
+                        <p className="font-serif text-xs font-bold text-[#1A1814] truncate group-hover:text-[#B87333] transition-colors">
                           {product.name}
                         </p>
                       </div>

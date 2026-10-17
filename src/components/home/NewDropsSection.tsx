@@ -12,23 +12,23 @@ export function NewDropsSection() {
   const newDrops = PRODUCTS.filter((p) => p.newArrival).slice(0, 4);
 
   return (
-    <section className="py-20 bg-[#0c0c10] border-b border-zinc-800/80">
+    <section className="py-24 bg-white border-b border-[#E8E0D4]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 pb-6 border-b border-zinc-800">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 pb-6 border-b border-[#E8E0D4]">
           <div>
-            <div className="flex items-center gap-2 text-[#d4ff00] text-xs font-mono font-bold uppercase tracking-widest mb-1">
+            <div className="flex items-center gap-2 text-[#B87333] text-xs font-mono-tag font-bold uppercase tracking-widest mb-2">
               <Sparkles className="w-4 h-4" />
               <span>FRESH FROM THE VAULT</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-white tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#1A1814] tracking-tight italic">
               New Drops & Recent Releases
             </h2>
           </div>
           <Link
             href="/sneakers?sort=newest"
-            className="mt-4 sm:mt-0 font-mono text-xs uppercase tracking-wider text-[#d4ff00] hover:underline flex items-center gap-1.5"
+            className="mt-4 sm:mt-0 font-mono-tag text-xs uppercase tracking-wider text-[#B87333] hover:text-[#8B5A2B] flex items-center gap-1.5 transition-colors"
           >
             <span>View All Recent Drops</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -41,10 +41,10 @@ export function NewDropsSection() {
             return (
               <div
                 key={drop.id}
-                className="group relative bg-[#131318] border border-zinc-800 hover:border-zinc-700 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl"
+                className="group relative bg-[#FAF7F2] border border-[#E8E0D4] hover:border-[#C4B8A8] rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover-lift"
               >
                 {/* Image & Status Tag */}
-                <div className="relative aspect-square w-full bg-zinc-950 overflow-hidden">
+                <div className="relative aspect-square w-full bg-[#F0EBE3] overflow-hidden rounded-t-2xl">
                   <ImageWithFallback
                     src={drop.images[0]}
                     alt={drop.name}
@@ -54,13 +54,13 @@ export function NewDropsSection() {
                   />
 
                   {/* Drop Status Tag */}
-                  <div className="absolute top-3 left-3 bg-[#d4ff00] text-black font-mono text-[10px] font-bold px-2.5 py-1 rounded uppercase tracking-wider shadow">
+                  <div className="absolute top-3 left-3 bg-[#1A1814] text-white font-mono-tag text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
                     DROP ACTIVE
                   </div>
 
                   {/* Release Date Chip */}
-                  <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm text-zinc-300 font-mono text-[10px] px-2.5 py-1 rounded border border-zinc-800 flex items-center gap-1.5">
-                    <Calendar className="w-3 h-3 text-[#d4ff00]" />
+                  <div className="absolute bottom-3 left-3 bg-white/85 backdrop-blur-sm text-[#3D3225] font-mono-tag text-[10px] px-3 py-1 rounded-full border border-[#E8E0D4] flex items-center gap-1.5">
+                    <Calendar className="w-3 h-3 text-[#B87333]" />
                     <span>{drop.releaseDate}</span>
                   </div>
                 </div>
@@ -68,30 +68,30 @@ export function NewDropsSection() {
                 {/* Details */}
                 <div className="p-5 flex flex-col justify-between flex-1">
                   <div>
-                    <div className="flex items-center justify-between text-xs font-mono mb-1">
-                      <span className="text-[#d4ff00] uppercase font-bold tracking-wider">
+                    <div className="flex items-center justify-between text-xs font-mono-tag mb-1">
+                      <span className="text-[#B87333] uppercase font-bold tracking-wider">
                         {drop.brand}
                       </span>
-                      <span className="text-zinc-500">{drop.category}</span>
+                      <span className="text-[#8C8275]">{drop.category}</span>
                     </div>
 
                     <Link href={`/product/${drop.slug}`}>
-                      <h3 className="font-display text-base font-bold text-white uppercase truncate hover:text-[#d4ff00] transition-colors">
+                      <h3 className="font-display text-base font-bold text-[#1A1814] uppercase truncate hover:text-[#B87333] transition-colors">
                         {drop.name}
                       </h3>
                     </Link>
 
-                    <p className="text-xs text-zinc-400 line-clamp-2 mt-2 leading-relaxed">
+                    <p className="text-xs text-[#8C8275] line-clamp-2 mt-2 leading-relaxed font-light">
                       {drop.description}
                     </p>
                   </div>
 
-                  <div className="mt-5 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+                  <div className="mt-5 pt-3 border-t border-[#E8E0D4] flex items-center justify-between">
                     <div>
-                      <span className="font-mono text-lg font-bold text-white block">
+                      <span className="font-mono-tag text-lg font-bold text-[#1A1814] block">
                         ${drop.price}
                       </span>
-                      <span className="font-mono text-[10px] text-zinc-500">
+                      <span className="font-mono-tag text-[10px] text-[#8C8275]">
                         {drop.stockQuantity} pairs remaining
                       </span>
                     </div>
@@ -99,7 +99,7 @@ export function NewDropsSection() {
                     <button
                       type="button"
                       onClick={() => openQuickView(drop)}
-                      className="px-3.5 py-2 bg-zinc-800 hover:bg-[#d4ff00] text-white hover:text-black font-mono text-xs font-bold uppercase rounded-lg transition-colors"
+                      className="px-4 py-2 bg-[#F0EBE3] hover:bg-[#1A1814] text-[#1A1814] hover:text-white font-mono-tag text-xs font-bold uppercase rounded-full transition-all duration-300"
                     >
                       Quick Cop
                     </button>

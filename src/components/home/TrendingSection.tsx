@@ -21,17 +21,17 @@ export function TrendingSection() {
     : PRODUCTS.slice(0, 8);
 
   return (
-    <section className="py-20 bg-[#08080a] border-b border-zinc-800/80">
+    <section className="py-24 bg-[#FAF7F2] border-b border-[#E8E0D4]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-zinc-800">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#E8E0D4]">
           <div>
-            <div className="flex items-center gap-2 text-[#d4ff00] text-xs font-mono font-bold uppercase tracking-widest mb-1.5">
-              <Flame className="w-4 h-4 fill-current text-red-500" />
+            <div className="flex items-center gap-2 text-[#B87333] text-xs font-mono-tag font-bold uppercase tracking-widest mb-2">
+              <Flame className="w-4 h-4 fill-current text-[#D4955A]" />
               <span>HIGH ROTATION</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#1A1814] italic">
               Trending Sneakers
             </h2>
           </div>
@@ -40,10 +40,10 @@ export function TrendingSection() {
           <div className="flex items-center gap-2 overflow-x-auto mt-4 md:mt-0 pt-2 pb-1 scrollbar-none">
             <button
               onClick={() => setActiveCategory('all')}
-              className={`px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all flex-shrink-0 ${
+              className={`px-5 py-2.5 rounded-full font-mono-tag text-xs uppercase tracking-wider transition-all flex-shrink-0 ${
                 activeCategory === 'all'
-                  ? 'bg-[#d4ff00] text-black font-bold shadow-md shadow-[#d4ff00]/20'
-                  : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
+                  ? 'bg-[#1A1814] text-white font-bold shadow-md'
+                  : 'bg-[#F0EBE3] text-[#8C8275] hover:text-[#1A1814] border border-[#E8E0D4]'
               }`}
             >
               All Trending
@@ -52,10 +52,10 @@ export function TrendingSection() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all flex-shrink-0 ${
+                className={`px-5 py-2.5 rounded-full font-mono-tag text-xs uppercase tracking-wider transition-all flex-shrink-0 ${
                   activeCategory === cat
-                    ? 'bg-[#d4ff00] text-black font-bold shadow-md shadow-[#d4ff00]/20'
-                    : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
+                    ? 'bg-[#1A1814] text-white font-bold shadow-md'
+                    : 'bg-[#F0EBE3] text-[#8C8275] hover:text-[#1A1814] border border-[#E8E0D4]'
                 }`}
               >
                 {cat}
@@ -72,13 +72,13 @@ export function TrendingSection() {
         </div>
 
         {/* View All Sneakers CTA */}
-        <div className="mt-14 flex justify-center">
+        <div className="mt-16 flex justify-center">
           <Link
             href="/sneakers"
-            className="px-10 py-4 bg-zinc-900 hover:bg-zinc-800 text-white hover:text-[#d4ff00] border border-zinc-700/80 hover:border-[#d4ff00]/50 font-mono text-xs font-bold uppercase tracking-widest rounded-xl flex items-center gap-3 transition-all duration-200 shadow-xl group"
+            className="px-10 py-4 bg-white hover:bg-[#F0EBE3] text-[#1A1814] hover:text-[#B87333] border border-[#C4B8A8] hover:border-[#B87333] font-mono-tag text-xs font-bold uppercase tracking-widest rounded-full flex items-center gap-3 transition-all duration-300 shadow-sm hover:shadow-lg group"
           >
             <span>VIEW ALL SNEAKERS ({PRODUCTS.length} PAIRS)</span>
-            <ArrowRight className="w-4 h-4 text-[#d4ff00] group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-[#B87333] group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 

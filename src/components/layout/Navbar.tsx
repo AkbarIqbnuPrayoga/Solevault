@@ -49,8 +49,8 @@ export function Navbar() {
       <header
         className={`sticky top-0 z-30 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#08080a]/95 backdrop-blur-md border-b border-[#242429] py-3.5 shadow-2xl'
-            : 'bg-[#08080a] border-b border-[#1c1c22] py-5'
+            ? 'bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8E0D4] py-3.5 shadow-[0_4px_20px_-5px_rgba(44,35,24,0.08)]'
+            : 'bg-[#FAF7F2] border-b border-[#E8E0D4] py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,7 +60,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-800/60 transition-colors"
+                className="p-2 text-[#3D3225] hover:text-[#1A1814] rounded-lg hover:bg-[#F0EBE3] transition-colors"
                 aria-label="Open mobile navigation"
               >
                 <Menu className="w-6 h-6" />
@@ -73,20 +73,20 @@ export function Navbar() {
                 href="/"
                 className="group flex items-center gap-1.5 focus:outline-none"
               >
-                <span className="font-display text-2xl sm:text-3xl font-black tracking-tighter text-white transition-colors group-hover:text-zinc-200">
-                  SOLE<span className="text-[#d4ff00]">VAULT</span>
+                <span className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#1A1814] transition-colors group-hover:text-[#3D3225]">
+                  SOLE<span className="text-[#B87333] italic">VAULT</span>
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#d4ff00] mb-2 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#B87333] mb-2 animate-pulse" />
               </Link>
 
               {/* Desktop Nav Links */}
               <nav className="hidden lg:flex items-center gap-1">
                 <Link
                   href="/sneakers?sort=newest"
-                  className={`px-3.5 py-2 text-xs font-mono uppercase tracking-widest transition-colors rounded-md ${
+                  className={`px-3.5 py-2 text-xs font-mono-tag uppercase tracking-widest transition-colors rounded-full ${
                     pathname === '/sneakers' && !activeMegaMenu
-                      ? 'text-[#d4ff00]'
-                      : 'text-zinc-300 hover:text-white hover:bg-zinc-900/60'
+                      ? 'text-[#B87333] bg-[#B87333]/5'
+                      : 'text-[#3D3225] hover:text-[#1A1814] hover:bg-[#F0EBE3]'
                   }`}
                 >
                   New Arrivals
@@ -100,7 +100,7 @@ export function Navbar() {
                 >
                   <Link
                     href="/sneakers"
-                    className="flex items-center gap-1 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-zinc-300 hover:text-white hover:bg-zinc-900/60 rounded-md transition-colors"
+                    className="flex items-center gap-1 px-3.5 py-2 text-xs font-mono-tag uppercase tracking-widest text-[#3D3225] hover:text-[#1A1814] hover:bg-[#F0EBE3] rounded-full transition-colors"
                   >
                     <span>Sneakers</span>
                     <ChevronDown className="w-3.5 h-3.5 opacity-60" />
@@ -108,10 +108,10 @@ export function Navbar() {
 
                   {/* Mega Menu Dropdown: Sneakers */}
                   {activeMegaMenu === 'sneakers' && (
-                    <div className="absolute top-full left-0 w-[580px] p-6 bg-[#0f0f13] border border-zinc-800 rounded-xl shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
+                    <div className="absolute top-full left-0 w-[580px] p-6 bg-white border border-[#E8E0D4] rounded-2xl shadow-[0_20px_60px_-15px_rgba(44,35,24,0.12)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
                       <div className="grid grid-cols-2 gap-6">
                         <div>
-                          <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 mb-3 pb-1 border-b border-zinc-800">
+                          <p className="font-mono-tag text-[11px] uppercase tracking-wider text-[#8C8275] mb-3 pb-1 border-b border-[#E8E0D4]">
                             By Silhouettes
                           </p>
                           <ul className="space-y-2">
@@ -119,32 +119,32 @@ export function Navbar() {
                               <li key={cat}>
                                 <Link
                                   href={`/sneakers?category=${cat}`}
-                                  className="flex items-center justify-between text-xs text-zinc-300 hover:text-[#d4ff00] py-1 transition-colors group"
+                                  className="flex items-center justify-between text-xs text-[#3D3225] hover:text-[#B87333] py-1 transition-colors group"
                                 >
                                   <span>{cat} Icons</span>
-                                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all text-[#d4ff00]" />
+                                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all text-[#B87333]" />
                                 </Link>
                               </li>
                             ))}
                           </ul>
                         </div>
 
-                        <div className="bg-zinc-900/70 p-4 rounded-lg border border-zinc-800/80 flex flex-col justify-between">
+                        <div className="bg-[#FAF7F2] p-4 rounded-xl border border-[#E8E0D4] flex flex-col justify-between">
                           <div>
-                            <div className="flex items-center gap-1.5 text-[#d4ff00] text-xs font-mono font-bold uppercase mb-1">
+                            <div className="flex items-center gap-1.5 text-[#B87333] text-xs font-mono-tag font-bold uppercase mb-1">
                               <Flame className="w-3.5 h-3.5" />
                               <span>Vault Selection</span>
                             </div>
-                            <h4 className="font-display text-sm font-bold text-white uppercase">
+                            <h4 className="font-display text-sm font-bold text-[#1A1814] italic">
                               Y2K Tech Runners & Retro Air
                             </h4>
-                            <p className="text-[11px] text-zinc-400 mt-1 leading-relaxed">
+                            <p className="text-[11px] text-[#8C8275] mt-1 leading-relaxed">
                               Explore metallic silver overlays, responsive segmented cushioning, and archival basketball staples.
                             </p>
                           </div>
                           <Link
                             href="/sneakers?featured=true"
-                            className="mt-4 inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#d4ff00] hover:underline"
+                            className="mt-4 inline-flex items-center gap-1.5 text-xs font-mono-tag font-bold text-[#B87333] hover:underline"
                           >
                             <span>Browse Vault Icons</span>
                             <ArrowRight className="w-3.5 h-3.5" />
@@ -163,7 +163,7 @@ export function Navbar() {
                 >
                   <Link
                     href="/brands"
-                    className="flex items-center gap-1 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-zinc-300 hover:text-white hover:bg-zinc-900/60 rounded-md transition-colors"
+                    className="flex items-center gap-1 px-3.5 py-2 text-xs font-mono-tag uppercase tracking-widest text-[#3D3225] hover:text-[#1A1814] hover:bg-[#F0EBE3] rounded-full transition-colors"
                   >
                     <span>Brands</span>
                     <ChevronDown className="w-3.5 h-3.5 opacity-60" />
@@ -171,14 +171,14 @@ export function Navbar() {
 
                   {/* Mega Menu Dropdown: Brands */}
                   {activeMegaMenu === 'brands' && (
-                    <div className="absolute top-full left-0 w-[620px] p-6 bg-[#0f0f13] border border-zinc-800 rounded-xl shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
-                      <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800">
-                        <span className="font-mono text-xs uppercase tracking-wider text-zinc-400">
+                    <div className="absolute top-full left-0 w-[620px] p-6 bg-white border border-[#E8E0D4] rounded-2xl shadow-[0_20px_60px_-15px_rgba(44,35,24,0.12)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
+                      <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E8E0D4]">
+                        <span className="font-mono-tag text-xs uppercase tracking-wider text-[#8C8275]">
                           Curated Houses
                         </span>
                         <Link
                           href="/brands"
-                          className="font-mono text-xs text-[#d4ff00] hover:underline"
+                          className="font-mono-tag text-xs text-[#B87333] hover:underline"
                         >
                           View All Brands &rarr;
                         </Link>
@@ -189,12 +189,12 @@ export function Navbar() {
                           <Link
                             key={brand}
                             href={`/sneakers?brand=${encodeURIComponent(brand)}`}
-                            className="p-3 rounded-lg bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800/80 hover:border-[#d4ff00]/40 transition-all group"
+                            className="p-3 rounded-xl bg-[#FAF7F2] hover:bg-[#F0EBE3] border border-[#E8E0D4] hover:border-[#B87333]/30 transition-all group"
                           >
-                            <p className="font-display text-sm font-bold text-white group-hover:text-[#d4ff00] transition-colors">
+                            <p className="font-display text-sm font-bold text-[#1A1814] group-hover:text-[#B87333] transition-colors italic">
                               {brand}
                             </p>
-                            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                            <span className="text-[10px] font-mono-tag text-[#8C8275] uppercase tracking-wider">
                               Shop Archives
                             </span>
                           </Link>
@@ -206,10 +206,10 @@ export function Navbar() {
 
                 <Link
                   href="/collections"
-                  className={`px-3.5 py-2 text-xs font-mono uppercase tracking-widest transition-colors rounded-md ${
+                  className={`px-3.5 py-2 text-xs font-mono-tag uppercase tracking-widest transition-colors rounded-full ${
                     pathname === '/collections'
-                      ? 'text-[#d4ff00]'
-                      : 'text-zinc-300 hover:text-white hover:bg-zinc-900/60'
+                      ? 'text-[#B87333] bg-[#B87333]/5'
+                      : 'text-[#3D3225] hover:text-[#1A1814] hover:bg-[#F0EBE3]'
                   }`}
                 >
                   Collections
@@ -217,7 +217,7 @@ export function Navbar() {
 
                 <Link
                   href="/sneakers?sale=true"
-                  className="px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-red-400 hover:text-red-300 hover:bg-red-950/20 rounded-md transition-colors flex items-center gap-1"
+                  className="px-3.5 py-2 text-xs font-mono-tag uppercase tracking-widest text-[#C9A0A0] hover:text-red-500 hover:bg-red-50 rounded-full transition-colors flex items-center gap-1"
                 >
                   <span>Sale</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping" />
@@ -231,11 +231,11 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="p-2.5 text-zinc-300 hover:text-[#d4ff00] rounded-lg hover:bg-zinc-900/80 transition-colors flex items-center gap-2 group"
+                className="p-2.5 text-[#3D3225] hover:text-[#B87333] rounded-full hover:bg-[#F0EBE3] transition-colors flex items-center gap-2 group"
                 aria-label="Search catalog"
               >
                 <Search className="w-5 h-5 transition-transform group-hover:scale-110" />
-                <span className="hidden xl:inline font-mono text-xs text-zinc-500 group-hover:text-zinc-300">
+                <span className="hidden xl:inline font-mono-tag text-xs text-[#8C8275] group-hover:text-[#3D3225]">
                   Search [⌘K]
                 </span>
               </button>
@@ -243,12 +243,12 @@ export function Navbar() {
               {/* Wishlist Icon */}
               <Link
                 href="/wishlist"
-                className="relative p-2.5 text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-900/80 transition-colors group"
+                className="relative p-2.5 text-[#3D3225] hover:text-[#1A1814] rounded-full hover:bg-[#F0EBE3] transition-colors group"
                 aria-label={`Wishlist, ${wishlistCount} items`}
               >
                 <Heart className="w-5 h-5 transition-transform group-hover:scale-110" />
                 {wishlistCount > 0 && (
-                  <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-[#d4ff00] text-black font-mono text-[10px] font-bold rounded-full flex items-center justify-center">
+                  <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-[#B87333] text-white font-mono-tag text-[10px] font-bold rounded-full flex items-center justify-center">
                     {wishlistCount}
                   </span>
                 )}
@@ -258,12 +258,12 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={openCart}
-                className="relative p-2.5 text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-900/80 transition-colors group"
+                className="relative p-2.5 text-[#3D3225] hover:text-[#1A1814] rounded-full hover:bg-[#F0EBE3] transition-colors group"
                 aria-label={`Shopping bag, ${cartCount} items`}
               >
                 <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-110" />
                 {cartCount > 0 && (
-                  <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-[#d4ff00] text-black font-mono text-[10px] font-bold rounded-full flex items-center justify-center glow-lime-sm">
+                  <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-[#B87333] text-white font-mono-tag text-[10px] font-bold rounded-full flex items-center justify-center glow-copper-sm">
                     {cartCount}
                   </span>
                 )}

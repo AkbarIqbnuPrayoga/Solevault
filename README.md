@@ -8,8 +8,8 @@
 
 - **Framework**: Next.js 16 (App Router with SSR & Static Pre-rendering)
 - **Language**: TypeScript 5
-- **Styling**: Tailwind CSS v4 with custom editorial display design tokens & electric lime highlights
-- **Typography**: Display typography (Syne), technical tags (Space Mono), clean sans (Plus Jakarta Sans)
+- **Styling**: Tailwind CSS v4 with Warm Luxury Cream & Copper editorial design tokens
+- **Typography**: Display typography (Playfair Display), technical tags (JetBrains Mono), clean sans (Inter)
 - **Icons**: Lucide React
 - **Animations & Interactivity**: Motion / Framer Motion, canvas-confetti, custom CSS micro-animations
 - **Global State & Persistence**: Zustand with `localStorage` persistence for cart, wishlist, recently viewed, and search query history

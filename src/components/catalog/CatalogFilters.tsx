@@ -32,7 +32,7 @@ const COLOR_OPTIONS = [
   { name: 'Red', hex: '#dc2626' },
   { name: 'Blue', hex: '#2563eb' },
   { name: 'Green', hex: '#16a34a' },
-  { name: 'Yellow', hex: '#d4ff00' },
+  { name: 'Yellow', hex: '#B87333' },
   { name: 'Brown', hex: '#78350f' },
 ];
 
@@ -56,34 +56,34 @@ export function CatalogFilters({
   onCloseMobileDrawer,
 }: CatalogFiltersProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-[#1A1814]">
       {/* Mobile drawer header */}
       {isMobileDrawer && (
-        <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+        <div className="flex items-center justify-between pb-4 border-b border-[#E8E0D4]">
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-[#d4ff00]" />
-            <h3 className="font-display text-lg font-bold uppercase text-white">
+            <Filter className="w-4 h-4 text-[#B87333]" />
+            <h3 className="font-serif text-lg font-bold text-[#1A1814]">
               Filter Catalog
             </h3>
           </div>
           <button
             onClick={onCloseMobileDrawer}
-            className="p-1.5 text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800 transition-colors"
+            className="p-2 text-[#8C8275] hover:text-[#1A1814] rounded-full hover:bg-[#F0EBE3] transition-colors"
             aria-label="Close filters"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {/* Filter Reset */}
-      <div className="flex items-center justify-between pb-3 border-b border-zinc-800/80">
-        <span className="font-mono text-xs uppercase tracking-wider text-zinc-400 font-bold">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E8E0D4]">
+        <span className="font-mono text-[11px] uppercase tracking-wider text-[#8C8275] font-semibold">
           Refine Selection
         </span>
         <button
           onClick={onResetFilters}
-          className="font-mono text-[11px] text-[#d4ff00] hover:underline flex items-center gap-1"
+          className="font-mono text-[11px] text-[#B87333] hover:underline flex items-center gap-1 font-semibold"
         >
           <RotateCcw className="w-3 h-3" />
           <span>Reset</span>
@@ -92,8 +92,8 @@ export function CatalogFilters({
 
       {/* Brands Filter */}
       <div>
-        <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white mb-3">
-          House / Brand
+        <h4 className="font-serif text-xs font-bold uppercase tracking-wider text-[#1A1814] mb-3">
+          House / Lineage
         </h4>
         <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
           {ALL_BRANDS.map((brand) => {
@@ -101,19 +101,19 @@ export function CatalogFilters({
             return (
               <label
                 key={brand}
-                className="flex items-center gap-2.5 text-xs font-mono text-zinc-300 hover:text-white cursor-pointer select-none"
+                className="flex items-center gap-2.5 text-xs text-[#8C8275] hover:text-[#1A1814] cursor-pointer select-none py-0.5"
               >
                 <div
                   onClick={() => onToggleBrand(brand)}
                   className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
                     isChecked
-                      ? 'bg-[#d4ff00] border-[#d4ff00] text-black font-bold'
-                      : 'border-zinc-700 bg-zinc-900 hover:border-zinc-500'
+                      ? 'bg-[#B87333] border-[#B87333] text-white font-bold'
+                      : 'border-[#E8E0D4] bg-[#FAF7F2] hover:border-[#B87333]'
                   }`}
                 >
                   {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                 </div>
-                <span>{brand}</span>
+                <span className={isChecked ? 'font-medium text-[#1A1814]' : ''}>{brand}</span>
               </label>
             );
           })}
@@ -121,8 +121,8 @@ export function CatalogFilters({
       </div>
 
       {/* Categories Filter */}
-      <div className="pt-4 border-t border-zinc-800/80">
-        <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white mb-3">
+      <div className="pt-4 border-t border-[#E8E0D4]">
+        <h4 className="font-serif text-xs font-bold uppercase tracking-wider text-[#1A1814] mb-3">
           Silhouette Category
         </h4>
         <div className="space-y-2">
@@ -131,19 +131,19 @@ export function CatalogFilters({
             return (
               <label
                 key={cat}
-                className="flex items-center gap-2.5 text-xs font-mono text-zinc-300 hover:text-white cursor-pointer select-none"
+                className="flex items-center gap-2.5 text-xs text-[#8C8275] hover:text-[#1A1814] cursor-pointer select-none py-0.5"
               >
                 <div
                   onClick={() => onToggleCategory(cat)}
                   className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
                     isChecked
-                      ? 'bg-[#d4ff00] border-[#d4ff00] text-black font-bold'
-                      : 'border-zinc-700 bg-zinc-900 hover:border-zinc-500'
+                      ? 'bg-[#B87333] border-[#B87333] text-white font-bold'
+                      : 'border-[#E8E0D4] bg-[#FAF7F2] hover:border-[#B87333]'
                   }`}
                 >
                   {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
                 </div>
-                <span>{cat}</span>
+                <span className={isChecked ? 'font-medium text-[#1A1814]' : ''}>{cat}</span>
               </label>
             );
           })}
@@ -151,8 +151,8 @@ export function CatalogFilters({
       </div>
 
       {/* Shoe Sizes Filter */}
-      <div className="pt-4 border-t border-zinc-800/80">
-        <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white mb-3">
+      <div className="pt-4 border-t border-[#E8E0D4]">
+        <h4 className="font-serif text-xs font-bold uppercase tracking-wider text-[#1A1814] mb-3">
           Size (US Men)
         </h4>
         <div className="grid grid-cols-4 gap-1.5">
@@ -163,10 +163,10 @@ export function CatalogFilters({
                 key={size}
                 type="button"
                 onClick={() => onToggleSize(size)}
-                className={`py-1.5 text-xs font-mono rounded border transition-all ${
+                className={`py-1.5 text-xs font-mono rounded-lg border transition-all ${
                   isSelected
-                    ? 'bg-[#d4ff00] border-[#d4ff00] text-black font-bold shadow-sm shadow-[#d4ff00]/30'
-                    : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-600'
+                    ? 'bg-[#B87333] border-[#B87333] text-white font-bold shadow-sm'
+                    : 'bg-[#FAF7F2] border-[#E8E0D4] text-[#1A1814] hover:border-[#B87333]'
                 }`}
               >
                 {size}
@@ -177,12 +177,12 @@ export function CatalogFilters({
       </div>
 
       {/* Price Range Slider */}
-      <div className="pt-4 border-t border-zinc-800/80">
+      <div className="pt-4 border-t border-[#E8E0D4]">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white">
-            Max Price
+          <h4 className="font-serif text-xs font-bold uppercase tracking-wider text-[#1A1814]">
+            Price Limit
           </h4>
-          <span className="font-mono text-xs font-bold text-[#d4ff00]">
+          <span className="font-mono text-xs font-bold text-[#B87333]">
             ${priceRange[1]}
           </span>
         </div>
@@ -193,9 +193,9 @@ export function CatalogFilters({
           step="10"
           value={priceRange[1]}
           onChange={(e) => onChangePriceRange([priceRange[0], Number(e.target.value)])}
-          className="w-full accent-[#d4ff00] cursor-pointer bg-zinc-800 rounded-lg h-1.5"
+          className="w-full accent-[#B87333] cursor-pointer bg-[#E8E0D4] rounded-lg h-1.5"
         />
-        <div className="flex justify-between font-mono text-[10px] text-zinc-500 mt-2">
+        <div className="flex justify-between font-mono text-[10px] text-[#8C8275] mt-2">
           <span>$70</span>
           <span>$160</span>
           <span>$260+</span>
@@ -203,9 +203,9 @@ export function CatalogFilters({
       </div>
 
       {/* Color Swatches */}
-      <div className="pt-4 border-t border-zinc-800/80">
-        <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white mb-3">
-          Color Tone
+      <div className="pt-4 border-t border-[#E8E0D4]">
+        <h4 className="font-serif text-xs font-bold uppercase tracking-wider text-[#1A1814] mb-3">
+          Color Palette
         </h4>
         <div className="flex flex-wrap gap-2">
           {COLOR_OPTIONS.map((col) => {
@@ -217,8 +217,8 @@ export function CatalogFilters({
                 onClick={() => onToggleColor(col.name.toLowerCase())}
                 className={`w-6 h-6 rounded-full border-2 transition-transform ${
                   isSelected
-                    ? 'border-[#d4ff00] scale-125 shadow-md shadow-[#d4ff00]/30 ring-1 ring-[#d4ff00]'
-                    : 'border-zinc-700 hover:scale-110'
+                    ? 'border-[#B87333] scale-125 shadow-md ring-2 ring-[#B87333]/20'
+                    : 'border-[#E8E0D4] hover:scale-110'
                 }`}
                 style={{ backgroundColor: col.hex }}
                 title={col.name}
@@ -230,33 +230,33 @@ export function CatalogFilters({
       </div>
 
       {/* Availability / Sale Toggles */}
-      <div className="pt-4 border-t border-zinc-800/80 space-y-2.5 font-mono text-xs">
-        <label className="flex items-center gap-2.5 text-zinc-300 hover:text-white cursor-pointer select-none">
+      <div className="pt-4 border-t border-[#E8E0D4] space-y-2.5 text-xs">
+        <label className="flex items-center gap-2.5 text-[#8C8275] hover:text-[#1A1814] cursor-pointer select-none">
           <div
             onClick={onToggleInStock}
             className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
               inStockOnly
-                ? 'bg-[#d4ff00] border-[#d4ff00] text-black font-bold'
-                : 'border-zinc-700 bg-zinc-900 hover:border-zinc-500'
+                ? 'bg-[#B87333] border-[#B87333] text-white font-bold'
+                : 'border-[#E8E0D4] bg-[#FAF7F2] hover:border-[#B87333]'
             }`}
           >
             {inStockOnly && <Check className="w-3 h-3 stroke-[3]" />}
           </div>
-          <span>In Stock Only</span>
+          <span className={inStockOnly ? 'font-medium text-[#1A1814]' : ''}>In Vault Stock Only</span>
         </label>
 
-        <label className="flex items-center gap-2.5 text-zinc-300 hover:text-white cursor-pointer select-none">
+        <label className="flex items-center gap-2.5 text-[#8C8275] hover:text-[#1A1814] cursor-pointer select-none">
           <div
             onClick={onToggleOnSale}
             className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
               onSaleOnly
-                ? 'bg-[#d4ff00] border-[#d4ff00] text-black font-bold'
-                : 'border-zinc-700 bg-zinc-900 hover:border-zinc-500'
+                ? 'bg-[#B87333] border-[#B87333] text-white font-bold'
+                : 'border-[#E8E0D4] bg-[#FAF7F2] hover:border-[#B87333]'
             }`}
           >
             {onSaleOnly && <Check className="w-3 h-3 stroke-[3]" />}
           </div>
-          <span className="text-red-400">On Sale / Archive Deals</span>
+          <span className="text-[#8B5A2B] font-medium">Archive Sale Offers</span>
         </label>
       </div>
 
@@ -264,7 +264,7 @@ export function CatalogFilters({
         <div className="pt-6">
           <button
             onClick={onCloseMobileDrawer}
-            className="w-full py-3 bg-[#d4ff00] text-black font-mono font-bold text-xs uppercase tracking-wider rounded-xl"
+            className="w-full py-3.5 bg-[#B87333] hover:bg-[#8B5A2B] text-white font-medium text-xs rounded-full shadow-md transition-colors"
           >
             Apply Filters
           </button>

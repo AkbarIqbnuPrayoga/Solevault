@@ -30,41 +30,41 @@ export function NewsletterSection() {
   };
 
   return (
-    <section id="newsletter" className="py-24 bg-[#0a0a0d] border-b border-zinc-800/80 relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#d4ff00]/[0.04] blur-[120px] pointer-events-none rounded-full" />
+    <section id="newsletter" className="py-28 bg-[#1A1814] border-b border-[#2C2318] relative overflow-hidden">
+      {/* Background warm glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#B87333]/[0.08] blur-[120px] pointer-events-none rounded-full" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d4ff00]/10 border border-[#d4ff00]/30 text-[#d4ff00] text-xs font-mono font-bold uppercase tracking-wider mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#B87333]/15 border border-[#B87333]/25 text-[#D4955A] text-xs font-mono-tag font-bold uppercase tracking-wider mb-6">
           <Sparkles className="w-3.5 h-3.5" />
           <span>VAULT PRIORITY ACCESS</span>
         </div>
 
-        <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-tight">
-          FIRST IN LINE.
+        <h2 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-white leading-tight italic">
+          First In Line.
         </h2>
 
-        <p className="mt-4 text-zinc-400 text-sm sm:text-base max-w-lg mx-auto font-sans leading-relaxed">
+        <p className="mt-4 text-[#C4B8A8] text-sm sm:text-base max-w-lg mx-auto font-sans font-light leading-relaxed">
           Get early access to new drops, exclusive edits, and members-only offers.
         </p>
 
         {/* Signup Form */}
         <div className="mt-10 max-w-md mx-auto">
           {status === 'success' ? (
-            <div className="p-6 rounded-2xl bg-[#111116] border border-[#d4ff00]/40 text-center animate-in zoom-in-95 duration-200">
-              <div className="w-12 h-12 rounded-full bg-[#d4ff00]/10 text-[#d4ff00] flex items-center justify-center mx-auto mb-3">
+            <div className="p-6 rounded-2xl bg-[#2C2318] border border-[#B87333]/30 text-center">
+              <div className="w-12 h-12 rounded-full bg-[#B87333]/15 text-[#D4955A] flex items-center justify-center mx-auto mb-3">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="font-display text-lg font-bold uppercase text-white">
+              <h3 className="font-display text-lg font-bold text-white italic">
                 You&apos;re On The VIP List
               </h3>
-              <p className="text-xs text-zinc-400 font-mono mt-1">
+              <p className="text-xs text-[#C4B8A8] font-mono-tag mt-1">
                 Demo confirmation: You will receive drop broadcasts before public releases.
               </p>
               <button
                 onClick={() => setStatus('idle')}
-                className="mt-4 text-xs font-mono text-[#d4ff00] hover:underline"
+                className="mt-4 text-xs font-mono-tag text-[#D4955A] hover:underline"
               >
                 Register another email &rarr;
               </button>
@@ -72,7 +72,7 @@ export function NewsletterSection() {
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C8275]" />
                 <input
                   type="email"
                   value={email}
@@ -81,7 +81,7 @@ export function NewsletterSection() {
                     if (status === 'error') setStatus('idle');
                   }}
                   placeholder="ENTER YOUR EMAIL FOR EARLY ACCESS"
-                  className="w-full bg-[#14141a] border border-zinc-800 text-white placeholder-zinc-500 font-mono text-xs pl-10 pr-4 py-3.5 rounded-xl focus:border-[#d4ff00] focus:outline-none transition-colors"
+                  className="w-full bg-[#2C2318] border border-[#3D3225] text-white placeholder-[#8C8275] font-mono-tag text-xs pl-11 pr-4 py-4 rounded-full focus:border-[#B87333] focus:outline-none transition-colors"
                   disabled={status === 'loading'}
                 />
               </div>
@@ -89,7 +89,7 @@ export function NewsletterSection() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="px-6 py-3.5 bg-[#d4ff00] hover:bg-[#e2ff40] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50 glow-lime-sm flex-shrink-0"
+                className="px-6 py-4 bg-[#B87333] hover:bg-[#D4955A] text-white font-mono-tag text-xs font-bold uppercase tracking-wider rounded-full flex items-center justify-center gap-2 transition-all duration-300 active:scale-95 disabled:opacity-50 glow-copper-sm flex-shrink-0"
               >
                 {status === 'loading' ? (
                   <>
@@ -107,13 +107,13 @@ export function NewsletterSection() {
           )}
 
           {status === 'error' && (
-            <div className="flex items-center justify-center gap-1.5 mt-3 text-xs text-red-400 font-mono">
+            <div className="flex items-center justify-center gap-1.5 mt-3 text-xs text-red-400 font-mono-tag">
               <AlertCircle className="w-3.5 h-3.5" />
               <span>{errorMessage}</span>
             </div>
           )}
 
-          <p className="mt-4 text-[11px] font-mono text-zinc-600">
+          <p className="mt-4 text-[11px] font-mono-tag text-[#8C8275]">
             Frontend demonstration. Zero spam. Unsubscribe at any time.
           </p>
         </div>

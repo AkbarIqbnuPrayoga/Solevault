@@ -35,26 +35,26 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <div
-      className="group relative flex flex-col bg-[#121216] border border-[#22222a] hover:border-[#383844] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+      className="group relative flex flex-col bg-white border border-[#E8E0D4] hover:border-[#C4B8A8] rounded-2xl overflow-hidden transition-all duration-400 hover-lift"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Top Badges */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 pointer-events-none">
         {product.sale && (
-          <span className="inline-flex items-center gap-1 bg-[#d4ff00] text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded shadow-sm uppercase tracking-wider">
+          <span className="inline-flex items-center gap-1 bg-[#1A1814] text-white font-mono-tag text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm uppercase tracking-wider">
             SALE
           </span>
         )}
         {product.trending && !product.sale && (
-          <span className="inline-flex items-center gap-1 bg-white text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded shadow-sm uppercase tracking-wider">
-            <Flame className="w-3 h-3 text-red-500 fill-current" />
+          <span className="inline-flex items-center gap-1 bg-white text-[#1A1814] font-mono-tag text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm uppercase tracking-wider border border-[#E8E0D4]">
+            <Flame className="w-3 h-3 text-[#D4955A] fill-current" />
             TRENDING
           </span>
         )}
         {product.newArrival && (
-          <span className="inline-flex items-center gap-1 bg-zinc-800/90 text-zinc-200 border border-zinc-700 font-mono text-[10px] font-semibold px-2 py-0.5 rounded backdrop-blur-sm uppercase tracking-wider">
-            <Sparkles className="w-2.5 h-2.5 text-[#d4ff00]" />
+          <span className="inline-flex items-center gap-1 bg-[#F0EBE3] text-[#3D3225] border border-[#E8E0D4] font-mono-tag text-[10px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-sm uppercase tracking-wider">
+            <Sparkles className="w-2.5 h-2.5 text-[#B87333]" />
             NEW DROP
           </span>
         )}
@@ -66,8 +66,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         onClick={handleToggleWishlist}
         className={`absolute top-3 right-3 z-10 p-2.5 rounded-full transition-all duration-200 ${
           isWishlisted
-            ? 'bg-red-500/20 text-red-400 border border-red-500/50 scale-110'
-            : 'bg-black/40 text-zinc-400 hover:text-white border border-white/10 hover:bg-black/70 backdrop-blur-sm'
+            ? 'bg-red-50 text-red-400 border border-red-200 scale-110'
+            : 'bg-white/80 text-[#8C8275] hover:text-[#1A1814] border border-[#E8E0D4] hover:bg-white backdrop-blur-sm'
         }`}
         aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
       >
@@ -81,7 +81,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       {/* Product Image Stage */}
       <Link
         href={`/product/${product.slug}`}
-        className="relative aspect-square w-full bg-zinc-950 overflow-hidden block"
+        className="relative aspect-square w-full bg-[#F0EBE3] overflow-hidden block"
       >
         <ImageWithFallback
           src={displayImage}
@@ -97,7 +97,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <button
             type="button"
             onClick={handleQuickAdd}
-            className="flex-1 py-2.5 bg-[#d4ff00] hover:bg-[#e2ff40] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-lg flex items-center justify-center gap-1.5 shadow-lg glow-lime-sm transition-transform active:scale-95"
+            className="flex-1 py-2.5 bg-[#1A1814] hover:bg-[#B87333] text-white font-mono-tag text-xs font-bold uppercase tracking-wider rounded-full flex items-center justify-center gap-1.5 shadow-lg transition-all duration-300 active:scale-95"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>Quick Select</span>
@@ -109,7 +109,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
               e.stopPropagation();
               openQuickView(product);
             }}
-            className="p-2.5 bg-zinc-900/90 hover:bg-zinc-800 text-white border border-zinc-700/80 rounded-lg backdrop-blur-sm transition-colors"
+            className="p-2.5 bg-white/90 hover:bg-white text-[#1A1814] border border-[#E8E0D4] rounded-full backdrop-blur-sm transition-colors shadow-lg"
             title="Inspect Sneaker"
             aria-label="Quick inspect"
           >
@@ -121,50 +121,50 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       {/* Product Information */}
       <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between">
         <div>
-          <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-1">
-            <span className="text-[#d4ff00] uppercase tracking-wider font-bold">
+          <div className="flex items-center justify-between text-[11px] font-mono-tag text-[#8C8275] mb-1">
+            <span className="text-[#B87333] uppercase tracking-wider font-bold">
               {product.brand}
             </span>
-            <span className="text-zinc-500">{product.category}</span>
+            <span className="text-[#C4B8A8]">{product.category}</span>
           </div>
 
-          <Link href={`/product/${product.slug}`} className="block group-hover:underline">
-            <h3 className="font-display text-base font-bold text-white uppercase tracking-tight line-clamp-1">
+          <Link href={`/product/${product.slug}`} className="block">
+            <h3 className="font-display text-base font-bold text-[#1A1814] uppercase tracking-tight line-clamp-1 group-hover:text-[#B87333] transition-colors">
               {product.name}
             </h3>
           </Link>
 
           {/* Colorway details */}
-          <div className="flex items-center justify-between mt-2 text-xs font-mono">
+          <div className="flex items-center justify-between mt-2 text-xs font-mono-tag">
             <div className="flex items-center gap-1.5">
               {product.availableColors.slice(0, 3).map((col) => (
                 <span
                   key={col.name}
-                  className="w-2.5 h-2.5 rounded-full border border-zinc-700 inline-block"
+                  className="w-3 h-3 rounded-full border border-[#E8E0D4] inline-block shadow-sm"
                   style={{ backgroundColor: col.hex }}
                   title={col.name}
                 />
               ))}
               {product.availableColors.length > 3 && (
-                <span className="text-[10px] text-zinc-500">
+                <span className="text-[10px] text-[#8C8275]">
                   +{product.availableColors.length - 3}
                 </span>
               )}
             </div>
-            <span className="text-[10px] text-zinc-500">
+            <span className="text-[10px] text-[#C4B8A8]">
               {product.availableSizes.length} sizes
             </span>
           </div>
         </div>
 
         {/* Price & Mobile Actions */}
-        <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+        <div className="mt-4 pt-3 border-t border-[#E8E0D4] flex items-center justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="font-mono text-lg font-bold text-white">
+            <span className="font-mono-tag text-lg font-bold text-[#1A1814]">
               ${product.price}
             </span>
             {product.originalPrice && (
-              <span className="font-mono text-xs text-zinc-500 line-through">
+              <span className="font-mono-tag text-xs text-[#C4B8A8] line-through">
                 ${product.originalPrice}
               </span>
             )}
@@ -174,7 +174,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <button
             type="button"
             onClick={handleQuickAdd}
-            className="lg:hidden p-2 bg-[#d4ff00] text-black rounded-lg text-xs font-mono font-bold flex items-center gap-1"
+            className="lg:hidden p-2 bg-[#1A1814] text-white rounded-full text-xs font-mono-tag font-bold flex items-center gap-1"
             aria-label="Select size"
           >
             <ShoppingBag className="w-3.5 h-3.5" />

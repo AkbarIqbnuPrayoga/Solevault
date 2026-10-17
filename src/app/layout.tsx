@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -53,11 +53,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=Syne:wght@700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#08080a] text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-[#d4ff00] selection:text-black">
+      <body className="bg-[#FAF7F2] text-[#1A1814] min-h-screen flex flex-col antialiased selection:bg-[#B87333] selection:text-white">
         <AnnouncementBar />
         <Navbar />
         
